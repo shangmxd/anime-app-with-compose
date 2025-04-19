@@ -2,6 +2,7 @@ package com.example.animeapp.di.modules
 
 import com.example.animeapp.model.remote.service.AnimeService
 import com.example.animeapp.repository.MainRepository
+import com.example.animeapp.usecase.GetAllAnimeUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -15,4 +16,10 @@ class RepositoryModule {
     @Singleton
     @Provides
     fun getMainRepository(animeService: AnimeService) = MainRepository(animeService)
+
+    @Singleton
+    @Provides
+    fun provideAllAnimeUseCase(mainRepository: MainRepository):GetAllAnimeUseCase{
+        return GetAllAnimeUseCase(mainRepository)
+    }
 }
