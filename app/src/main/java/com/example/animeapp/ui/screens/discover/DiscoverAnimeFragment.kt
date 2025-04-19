@@ -6,10 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.example.animeapp.databinding.FragmentDiscoverAnimeBinding
 import com.example.animeapp.ui.screens.discover.adapters.DiscoverAnimeListAdapter
 import com.example.animeapp.utils.collectOnStarted
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class DiscoverAnimeFragment : Fragment() {
@@ -32,8 +38,8 @@ class DiscoverAnimeFragment : Fragment() {
 
         binding.animeListRecyclerView.adapter = animeListAdapter
 
-        discoverAnimeViewModel.mangaStateFlow.collectOnStarted(viewLifecycleOwner) {
-            animeListAdapter.submitList(it)
+        discoverAnimeViewModel.mangaStateFlow.collectOnStarted(viewLifecycleOwner){
+            animeListAdapter.submitData(it)
         }
     }
 

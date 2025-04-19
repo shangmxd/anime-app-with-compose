@@ -2,6 +2,7 @@ package com.example.animeapp.ui.screens.discover.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -9,7 +10,7 @@ import coil3.load
 import com.example.animeapp.databinding.DiscoverAnimeLitItemsBinding
 import com.example.animeapp.model.local.Anime
 
-class DiscoverAnimeListAdapter :ListAdapter<Anime,DiscoverAnimeListAdapter.MyViewHolder>(simpleDiffUtil) {
+class DiscoverAnimeListAdapter :PagingDataAdapter<Anime,DiscoverAnimeListAdapter.MyViewHolder>(simpleDiffUtil) {
 
     companion object {
         val simpleDiffUtil = object :DiffUtil.ItemCallback<Anime>(){
@@ -34,11 +35,11 @@ class DiscoverAnimeListAdapter :ListAdapter<Anime,DiscoverAnimeListAdapter.MyVie
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val item = getItem(position)
 
-        holder.binding.animeTitleTv.text = item.title
-        holder.binding.animeBackgroundTv.text = item.synopsis
-        holder.binding.animeImgIv.load(item.images.jpg.imageUrl)
-        holder.binding.animeReleaseYearTv.text = item.year.toString()
-        holder.binding.animeEpisodesTv.text = item.episodes.toString()
+        holder.binding.animeTitleTv.text = item?.title
+        holder.binding.animeBackgroundTv.text = item?.synopsis
+        holder.binding.animeImgIv.load(item?.images?.jpg?.imageUrl)
+        holder.binding.animeReleaseYearTv.text = item?.year.toString()
+        holder.binding.animeEpisodesTv.text = item?.episodes.toString()
         holder.binding.animeCountTv.text = position.plus(1).toString()
     }
 
