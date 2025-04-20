@@ -18,7 +18,7 @@ fun AnimeDTO.toModel() = Anime(
     },
     malID = this.malID,
     score = this.score,
-    synopsis = this.synopsis,
+    synopsis = this.synopsis?:"No information available",
     title = this.title,
     year = this.year
 )

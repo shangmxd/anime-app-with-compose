@@ -2,6 +2,7 @@ package com.example.animeapp.di.modules
 
 import com.example.animeapp.model.remote.service.AnimeService
 import com.example.animeapp.repository.MainRepository
+import com.example.animeapp.usecase.AnimeSearchInteractor
 import com.example.animeapp.usecase.GetAllAnimeUseCase
 import dagger.Module
 import dagger.Provides
@@ -22,4 +23,11 @@ class RepositoryModule {
     fun provideAllAnimeUseCase(mainRepository: MainRepository):GetAllAnimeUseCase{
         return GetAllAnimeUseCase(mainRepository)
     }
+
+    @Singleton
+    @Provides
+    fun provideAnimeSearchInteractor(mainRepository: MainRepository):AnimeSearchInteractor{
+        return AnimeSearchInteractor(mainRepository)
+    }
+
 }

@@ -81,4 +81,6 @@ dependencies {
     //Paging Dependencies
     implementation("androidx.paging:paging-runtime:3.3.6")
 
+    //Material Icon Dependencies
+    implementation("com.google.android.material:material:1.9.0")
 }

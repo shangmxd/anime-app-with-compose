@@ -12,4 +12,9 @@ interface AnimeService {
     suspend fun getAllAnime(
         @Query("page") page:Int
     ): AnimeResponse
+
+    @GET("anime")
+    suspend fun findAnime(
+        @Query("q") query:String
+    ):AnimeResponse
 }

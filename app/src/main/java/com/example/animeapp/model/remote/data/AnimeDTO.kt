@@ -9,7 +9,7 @@ data class AnimeDTO(
     @SerializedName("licensors") val licensors: List<LicensorDTO>,
     @SerializedName("mal_id") val malID: Int,
     @SerializedName("score") val score: Double,
-    @SerializedName("synopsis") val synopsis: String,
+    @SerializedName("synopsis") val synopsis: String?,
     @SerializedName("title") val title: String,
     @SerializedName("year") val year: Int
 )

@@ -3,6 +3,7 @@ package com.example.animeapp.repository
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import com.example.animeapp.model.local.Anime
+import com.example.animeapp.model.remote.data.AnimeDTO
 import com.example.animeapp.model.remote.service.AnimeService
 import com.example.animeapp.utils.toModel
 import kotlinx.coroutines.flow.map
@@ -14,5 +15,11 @@ class MainRepository @Inject constructor(private val animeService: AnimeService)
         PagingConfig(pageSize = 25, initialLoadSize = 50)) {
         AnimePagingSource(animeService)
     }.flow
+
+    suspend fun searchAnime(query:String):List<Anime> {
+        return animeService.findAnime(query)
+            .data
+            .map(AnimeDTO::toModel)
+    }
 
 }
