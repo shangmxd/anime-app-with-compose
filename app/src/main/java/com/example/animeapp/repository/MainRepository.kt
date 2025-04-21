@@ -22,4 +22,6 @@ class MainRepository @Inject constructor(private val animeService: AnimeService)
             .map(AnimeDTO::toModel)
     }
 
+    suspend fun getAnimeByID(animeID:Int) = animeService.getAnimeDetails(animeID).data.toModel()
+
 }

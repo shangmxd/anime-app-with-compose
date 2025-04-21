@@ -18,7 +18,6 @@ class SearchAnimeViewModel @Inject constructor(private val animeSearchInteractor
     val searchedAnime:StateFlow<List<Anime>>
         get() = _searchedAnime
 
-
     init {
         viewModelScope.launch {
             animeSearchInteractor.searchQuery

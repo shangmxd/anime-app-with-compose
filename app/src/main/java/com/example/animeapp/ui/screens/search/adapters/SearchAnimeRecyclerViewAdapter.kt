@@ -10,11 +10,16 @@ import com.example.animeapp.model.local.Anime
 import com.example.animeapp.ui.common.MyViewHolder
 import com.example.animeapp.utils.simpleDiffUtil
 
-class SearchAnimeRecyclerViewAdapter:ListAdapter<Anime,MyViewHolder>(simpleDiffUtil) {
+class SearchAnimeRecyclerViewAdapter(
+    private val onAnimeClicked:(Int) -> Unit
+):ListAdapter<Anime,MyViewHolder>(simpleDiffUtil) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val binding = DiscoverAnimeLitItemsBinding.inflate(LayoutInflater.from(parent.context),parent,false)
-        return MyViewHolder(binding)
+        return MyViewHolder(
+            binding,
+            onClick = onAnimeClicked
+        )
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
@@ -26,5 +31,8 @@ class SearchAnimeRecyclerViewAdapter:ListAdapter<Anime,MyViewHolder>(simpleDiffU
         holder.binding.animeReleaseYearTv.text = item?.year.toString()
         holder.binding.animeEpisodesTv.text = item?.episodes.toString()
         holder.binding.animeCountTv.visibility = View.GONE
+        holder.binding.root.setOnClickListener {
+            onAnimeClicked(item.malID)
+        }
     }
 }

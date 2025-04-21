@@ -11,5 +11,6 @@ data class AnimeDTO(
     @SerializedName("score") val score: Double,
     @SerializedName("synopsis") val synopsis: String?,
     @SerializedName("title") val title: String,
-    @SerializedName("year") val year: Int
+    @SerializedName("year") val year: Int,
+    @SerializedName("genres") val genres: List<GenresDTO>
 )

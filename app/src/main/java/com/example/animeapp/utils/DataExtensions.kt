@@ -20,7 +20,10 @@ fun AnimeDTO.toModel() = Anime(
     score = this.score,
     synopsis = this.synopsis?:"No information available",
     title = this.title,
-    year = this.year
+    year = this.year,
+    genre = this.genres.map {
+        it.genreName
+    }.joinToString(" , ")
 )
 
 fun ImagesDTO.toLocalImage() = Images(

@@ -10,6 +10,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import com.example.animeapp.databinding.FragmentDiscoverAnimeBinding
 import com.example.animeapp.ui.screens.discover.adapters.DiscoverAnimeListAdapter
 import com.example.animeapp.utils.collectOnStarted
@@ -23,7 +24,11 @@ class DiscoverAnimeFragment : Fragment() {
     private var _binding: FragmentDiscoverAnimeBinding? = null
     private val binding: FragmentDiscoverAnimeBinding get() = _binding!!
     private val discoverAnimeViewModel: DiscoverAnimeViewModel by viewModels()
-    private val animeListAdapter = DiscoverAnimeListAdapter()
+    private val animeListAdapter = DiscoverAnimeListAdapter() {id->
+        findNavController().navigate(
+            DiscoverAnimeFragmentDirections.actionDiscoverAnimeFragmentToDetailAnimeFragment(id)
+        )
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

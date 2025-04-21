@@ -8,9 +8,11 @@ import android.view.ViewGroup
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.fragment.findNavController
 import com.example.animeapp.R
 import com.example.animeapp.databinding.FragmentDiscoverAnimeBinding
 import com.example.animeapp.databinding.FragmentSearchAnimeBinding
+import com.example.animeapp.ui.screens.discover.DiscoverAnimeFragmentDirections
 import com.example.animeapp.ui.screens.search.adapters.SearchAnimeRecyclerViewAdapter
 import com.example.animeapp.utils.collectOnStarted
 import dagger.hilt.android.AndroidEntryPoint
@@ -21,7 +23,11 @@ class SearchAnimeFragment : Fragment() {
     private var _binding: FragmentSearchAnimeBinding? = null
     private val binding: FragmentSearchAnimeBinding get() = _binding!!
     private val searchAnimeViewModel:SearchAnimeViewModel by viewModels()
-    private val searchAnimeRecyclerViewAdapter = SearchAnimeRecyclerViewAdapter()
+    private val searchAnimeRecyclerViewAdapter = SearchAnimeRecyclerViewAdapter() {id ->
+        findNavController().navigate(
+            DiscoverAnimeFragmentDirections.actionDiscoverAnimeFragmentToDetailAnimeFragment(id)
+        )
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

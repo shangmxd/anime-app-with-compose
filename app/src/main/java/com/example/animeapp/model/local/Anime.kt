@@ -9,5 +9,6 @@ data class Anime(
     val score: Double,
     val synopsis: String,
     val title: String,
-    val year: Int
+    val year: Int,
+    val genre:String
 )
