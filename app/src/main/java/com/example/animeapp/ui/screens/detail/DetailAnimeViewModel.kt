@@ -14,6 +14,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -24,8 +25,8 @@ class DetailAnimeViewModel @Inject constructor(
 ):ViewModel() {
 
     private val animeId = state.get<Int>("id")?:0
-    private val _animeDetails:MutableStateFlow<UiState> = MutableStateFlow(UiState.Loading)
-    val animeDetails:StateFlow<UiState> get() = _animeDetails.asStateFlow()
+    private val _animeDetails:MutableStateFlow<UiState<Anime>> = MutableStateFlow(UiState.Loading)
+    val animeDetails:StateFlow<UiState<Anime>> get() = _animeDetails.asStateFlow()
 
     init {
         loadAnimeDetails()
@@ -33,7 +34,7 @@ class DetailAnimeViewModel @Inject constructor(
 
     private fun loadAnimeDetails() {
         viewModelScope.launch {
-            getAnimeDetailsUseCase.invoke(animeId = animeId)
+            getAnimeDetailsUseCase(animeId = animeId)
                 .collect(_animeDetails)
         }
     }

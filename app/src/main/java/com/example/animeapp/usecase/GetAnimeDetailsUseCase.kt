@@ -13,6 +13,6 @@ class GetAnimeDetailsUseCase @Inject constructor(private val mainRepository: Mai
         val result = mainRepository.getAnimeByID(animeId)
         emit(UiState.Result(result))
         }.catch {
-            emit(UiState.Error(it))
+            emit(UiState.Error)
     }
 }

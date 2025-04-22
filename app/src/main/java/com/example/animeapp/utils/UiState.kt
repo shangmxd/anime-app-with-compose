@@ -1,11 +1,8 @@
 package com.example.animeapp.utils
 
-import com.example.animeapp.model.local.Anime
-
-sealed class UiState{
-    data object Loading:UiState()
-    class Result(val result: Anime):UiState()
-    class Error(val error:Throwable):UiState()
-
-
+sealed class UiState<out T: Any>{
+    data object Loading:UiState<Nothing>()
+    class Result<out T: Any> (val result: T):UiState<T>()
+    data object Error :UiState<Nothing>()
+    
 }

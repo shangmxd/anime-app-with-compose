@@ -2,9 +2,11 @@ package com.example.animeapp.usecase
 
 import com.example.animeapp.model.local.Anime
 import com.example.animeapp.repository.MainRepository
+import com.example.animeapp.utils.UiState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.map
@@ -21,19 +23,25 @@ class AnimeSearchInteractor @Inject constructor(private val mainRepository: Main
         extraBufferCapacity = 1
     )
 
-    val searchQuery: Flow<List<Anime>>
+    val searchQuery: Flow<UiState<List<Anime>>>
         get() = _searchQuery
             .debounce(DEBOUNCE_LIMIT)
             .map(CharSequence::toString)
             .map(::performSearchQuery)
+            .catch { emit(UiState.Error) }
 
 
-    fun searchAnimeByQuery(query:CharSequence) {
+    fun searchAnimeByQuery(query: CharSequence) {
         _searchQuery.tryEmit(query)
     }
 
-    suspend fun performSearchQuery(query:String):List<Anime> {
-        return mainRepository.searchAnime(query)
+    suspend fun performSearchQuery(query: String): UiState<List<Anime>> {
+        try {
+            val result = mainRepository.searchAnime(query)
+            return UiState.Result(result)
+        } catch (e: Exception) {
+            return UiState.Error
+        }
     }
 
 }

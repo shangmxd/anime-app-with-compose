@@ -14,6 +14,7 @@ import com.example.animeapp.databinding.FragmentDiscoverAnimeBinding
 import com.example.animeapp.databinding.FragmentSearchAnimeBinding
 import com.example.animeapp.ui.screens.discover.DiscoverAnimeFragmentDirections
 import com.example.animeapp.ui.screens.search.adapters.SearchAnimeRecyclerViewAdapter
+import com.example.animeapp.utils.UiState
 import com.example.animeapp.utils.collectOnStarted
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -48,10 +49,17 @@ class SearchAnimeFragment : Fragment() {
             }
         }
 
-        searchAnimeViewModel.searchedAnime.collectOnStarted(viewLifecycleOwner) {
-            binding.searchedAnimeOptionsRv.visibility = if (it.isNotEmpty()) View.VISIBLE else View.GONE
-            binding.errorMessageTv.visibility = if (it.isEmpty()) View.VISIBLE else View.GONE
-            searchAnimeRecyclerViewAdapter.submitList(it)
+        searchAnimeViewModel.searchedAnime.collectOnStarted(viewLifecycleOwner) {uiState ->
+            when(uiState){
+                is UiState.Loading -> println("Searched Anime is loading")
+                is UiState.Result -> {
+                    binding.searchedAnimeOptionsRv.visibility = if (uiState.result.isNotEmpty()) View.VISIBLE else View.GONE
+                    binding.errorMessageTv.visibility = if (uiState.result.isEmpty()) View.VISIBLE else View.GONE
+                    searchAnimeRecyclerViewAdapter.submitList(uiState.result)
+                }
+                is UiState.Error -> println("Error in loading searched Anime")
+            }
+
         }
     }
 }

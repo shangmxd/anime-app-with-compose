@@ -19,29 +19,30 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class DetailAnimeFragment : Fragment() {
 
-    private var _binding:FragmentDetailAnimeBinding? = null
+    private var _binding: FragmentDetailAnimeBinding? = null
 
-    private val binding:FragmentDetailAnimeBinding get() = _binding!!
-    private val detailAnimeViewModel:DetailAnimeViewModel by viewModels()
+    private val binding: FragmentDetailAnimeBinding get() = _binding!!
+    private val detailAnimeViewModel: DetailAnimeViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
-       _binding = FragmentDetailAnimeBinding.inflate(inflater,container,false)
+        _binding = FragmentDetailAnimeBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewLifecycleOwner.lifecycleScope.launch {
-            detailAnimeViewModel.animeDetails.collectLatest {uiState ->
-                when(uiState){
+            detailAnimeViewModel.animeDetails.collectLatest { uiState ->
+                when (uiState) {
                     is UiState.Loading -> {
                         binding.animeDetailLoadingIndicator.visibility = View.VISIBLE
                         binding.contentLayout.visibility = View.GONE
                     }
+
                     is UiState.Result -> {
                         binding.animeDetailLoadingIndicator.visibility = View.GONE
                         binding.contentLayout.visibility = View.VISIBLE
@@ -50,8 +51,9 @@ class DetailAnimeFragment : Fragment() {
                         binding.animeDetailSynopsisTv.text = uiState.result.synopsis
                         binding.animeDetailGenresTv.text = uiState.result.genre
                     }
-                    is UiState.Error -> println("Error ${uiState.error}")
-                    }
+
+                    is UiState.Error -> println("Error ")
+                }
             }
         }
     }
