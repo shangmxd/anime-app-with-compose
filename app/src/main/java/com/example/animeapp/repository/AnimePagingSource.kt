@@ -2,7 +2,7 @@ package com.example.animeapp.repository
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.example.animeapp.model.local.Anime
+import com.example.animeapp.model.local.data.Anime
 import com.example.animeapp.model.remote.service.AnimeService
 import com.example.animeapp.utils.toModel
 

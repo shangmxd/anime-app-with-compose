@@ -1,4 +1,4 @@
-package com.example.animeapp.model.local
+package com.example.animeapp.model.local.data
 
 data class Anime(
     val duration: String,
@@ -10,5 +10,7 @@ data class Anime(
     val synopsis: String,
     val title: String,
     val year: Int,
-    val genre:String
+    val genre:String,
+    val isFavoured:Boolean = false,
+    val isInWatch:Boolean = false
 )

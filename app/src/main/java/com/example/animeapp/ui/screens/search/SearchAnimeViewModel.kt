@@ -2,7 +2,7 @@ package com.example.animeapp.ui.screens.search
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.animeapp.model.local.Anime
+import com.example.animeapp.model.local.data.Anime
 import com.example.animeapp.usecase.AnimeSearchInteractor
 import com.example.animeapp.utils.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel

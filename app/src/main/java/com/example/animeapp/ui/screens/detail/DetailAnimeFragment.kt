@@ -35,6 +35,22 @@ class DetailAnimeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        initViews()
+        subscribeUI()
+    }
+
+    private fun initViews() {
+        binding.animeDetailSaveButton.setOnClickListener {
+            detailAnimeViewModel.onFavButtonClicked()
+        }
+
+        binding.animeDetailToWatchButton.setOnClickListener {
+            detailAnimeViewModel.onToWatchButtonClicked()
+        }
+    }
+
+    private fun subscribeUI() {
         viewLifecycleOwner.lifecycleScope.launch {
             detailAnimeViewModel.animeDetails.collectLatest { uiState ->
                 when (uiState) {
@@ -50,6 +66,12 @@ class DetailAnimeFragment : Fragment() {
                         binding.animeDetailTitleTv.text = uiState.result.title
                         binding.animeDetailSynopsisTv.text = uiState.result.synopsis
                         binding.animeDetailGenresTv.text = uiState.result.genre
+
+                        if(uiState.result.isInWatch) binding.toWatchIconIv.setColorFilter(R.color.red)
+                        else binding.toWatchIconIv.setColorFilter(R.color.black)
+
+                        if(uiState.result.isFavoured) binding.saveIconIv.setColorFilter(R.color.red)
+                        else binding.saveIconIv.setColorFilter(R.color.black)
                     }
 
                     is UiState.Error -> println("Error ")

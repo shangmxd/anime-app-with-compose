@@ -1,9 +1,9 @@
 package com.example.animeapp.utils
 
-import com.example.animeapp.model.local.Anime
-import com.example.animeapp.model.local.Images
-import com.example.animeapp.model.local.Jpg
-import com.example.animeapp.model.local.Licensor
+import com.example.animeapp.model.local.data.Anime
+import com.example.animeapp.model.local.data.Images
+import com.example.animeapp.model.local.data.Jpg
+import com.example.animeapp.model.local.data.Licensor
 import com.example.animeapp.model.remote.data.AnimeDTO
 import com.example.animeapp.model.remote.data.ImagesDTO
 import com.example.animeapp.model.remote.data.JpgDTO

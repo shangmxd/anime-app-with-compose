@@ -1,4 +1,4 @@
-package com.example.animeapp.model.local
+package com.example.animeapp.model.local.data
 
 data class Jpg(
     val imageUrl: String,

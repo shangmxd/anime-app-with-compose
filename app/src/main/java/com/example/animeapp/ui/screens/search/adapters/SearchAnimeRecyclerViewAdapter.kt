@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import coil3.load
 import com.example.animeapp.databinding.DiscoverAnimeLitItemsBinding
-import com.example.animeapp.model.local.Anime
+import com.example.animeapp.model.local.data.Anime
 import com.example.animeapp.ui.common.MyViewHolder
 import com.example.animeapp.utils.simpleDiffUtil
 

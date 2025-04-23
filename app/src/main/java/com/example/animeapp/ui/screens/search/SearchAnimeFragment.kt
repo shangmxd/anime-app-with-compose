@@ -26,7 +26,7 @@ class SearchAnimeFragment : Fragment() {
     private val searchAnimeViewModel:SearchAnimeViewModel by viewModels()
     private val searchAnimeRecyclerViewAdapter = SearchAnimeRecyclerViewAdapter() {id ->
         findNavController().navigate(
-            DiscoverAnimeFragmentDirections.actionDiscoverAnimeFragmentToDetailAnimeFragment(id)
+            SearchAnimeFragmentDirections.actionSearchAnimeFragmentToDetailAnimeFragment(id)
         )
     }
     override fun onCreateView(

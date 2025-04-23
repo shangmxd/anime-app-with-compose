@@ -1,9 +1,11 @@
-package com.example.animeapp.di.modules
+package com.example.animeapp.di
 
+import com.example.animeapp.model.local.dao.AnimeDao
 import com.example.animeapp.model.remote.service.AnimeService
 import com.example.animeapp.repository.MainRepository
 import com.example.animeapp.usecase.AnimeSearchInteractor
 import com.example.animeapp.usecase.GetAllAnimeUseCase
+import com.example.animeapp.usecase.UpdateSavedAnimeUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,7 +18,8 @@ class RepositoryModule {
 
     @Singleton
     @Provides
-    fun getMainRepository(animeService: AnimeService) = MainRepository(animeService)
+    fun getMainRepository(animeService: AnimeService,animeDao: AnimeDao) =
+        MainRepository(animeService,animeDao)
 
     @Singleton
     @Provides
@@ -28,6 +31,12 @@ class RepositoryModule {
     @Provides
     fun provideAnimeSearchInteractor(mainRepository: MainRepository):AnimeSearchInteractor{
         return AnimeSearchInteractor(mainRepository)
+    }
+
+    @Singleton
+    @Provides
+    fun provideUpdateSavedAnimeUseCase(mainRepository: MainRepository):UpdateSavedAnimeUseCase{
+        return UpdateSavedAnimeUseCase(mainRepository)
     }
 
 }

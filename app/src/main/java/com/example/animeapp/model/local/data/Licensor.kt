@@ -1,4 +1,4 @@
-package com.example.animeapp.model.local
+package com.example.animeapp.model.local.data
 
 data class Licensor(
     val malId: Int,

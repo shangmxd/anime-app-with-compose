@@ -1,13 +1,11 @@
 package com.example.animeapp.usecase
 
-import com.example.animeapp.model.local.Anime
+import com.example.animeapp.model.local.data.Anime
 import com.example.animeapp.repository.MainRepository
 import com.example.animeapp.utils.UiState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
