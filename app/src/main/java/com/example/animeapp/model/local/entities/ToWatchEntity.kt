@@ -18,5 +18,7 @@ import androidx.room.PrimaryKey
     @ColumnInfo("Year")
     val year:Int,
     @ColumnInfo("Episodes")
-    val episodes:Int
+    val episodes:Int,
+    @ColumnInfo("Poster")
+    val backgroundImg:String
 )

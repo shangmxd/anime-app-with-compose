@@ -32,7 +32,14 @@
         android:id="@+id/savedAnimeFragment"
         android:name="com.example.animeapp.ui.screens.saved.SavedAnimeFragment"
         android:label="fragment_saved_anime"
-        tools:layout="@layout/fragment_saved_anime" />
+        tools:layout="@layout/fragment_saved_anime" >
+        <argument
+            android:name="saveType"
+            app:argType="com.example.animeapp.usecase.GetSavedAnimeUseCase$SavedCommands" />
+        <action
+            android:id="@+id/action_savedAnimeFragment_to_detailAnimeFragment"
+            app:destination="@id/detailAnimeFragment" />
+    </fragment>
     <fragment
         android:id="@+id/searchAnimeFragment"
         android:name="com.example.animeapp.ui.screens.search.SearchAnimeFragment"

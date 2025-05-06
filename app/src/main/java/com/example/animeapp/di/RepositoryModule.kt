@@ -5,6 +5,7 @@ import com.example.animeapp.model.remote.service.AnimeService
 import com.example.animeapp.repository.MainRepository
 import com.example.animeapp.usecase.AnimeSearchInteractor
 import com.example.animeapp.usecase.GetAllAnimeUseCase
+import com.example.animeapp.usecase.GetSavedAnimeUseCase
 import com.example.animeapp.usecase.UpdateSavedAnimeUseCase
 import dagger.Module
 import dagger.Provides
@@ -37,6 +38,11 @@ class RepositoryModule {
     @Provides
     fun provideUpdateSavedAnimeUseCase(mainRepository: MainRepository):UpdateSavedAnimeUseCase{
         return UpdateSavedAnimeUseCase(mainRepository)
+    }
+    @Singleton
+    @Provides
+    fun provideGetSavedAnimeUseCase(mainRepository: MainRepository):GetSavedAnimeUseCase{
+        return GetSavedAnimeUseCase(mainRepository)
     }
 
 }

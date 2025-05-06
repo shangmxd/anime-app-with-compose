@@ -17,7 +17,6 @@ class UpdateSavedAnimeUseCase @Inject constructor(val mainRepository: MainReposi
                 else mainRepository.addAnimeToWatchlist(anime)
             }
         }
-
     }
 
     enum class CMD {

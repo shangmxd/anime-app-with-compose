@@ -6,17 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.animeapp.databinding.FragmentDiscoverAnimeBinding
 import com.example.animeapp.ui.screens.discover.adapters.DiscoverAnimeListAdapter
+import com.example.animeapp.usecase.GetSavedAnimeUseCase
 import com.example.animeapp.utils.collectOnStarted
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class DiscoverAnimeFragment : Fragment() {
@@ -41,11 +36,33 @@ class DiscoverAnimeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.animeListRecyclerView.adapter = animeListAdapter
+        initViews()
+        subscribeViews()
+    }
 
+    private fun subscribeViews() {
         discoverAnimeViewModel.mangaStateFlow.collectOnStarted(viewLifecycleOwner){
             animeListAdapter.submitData(it)
         }
+    }
+
+    private fun initViews() {
+        binding.animeListRecyclerView.adapter = animeListAdapter
+        binding.favouritesButton.setOnClickListener {
+            findNavController().navigate(
+                DiscoverAnimeFragmentDirections.actionDiscoverAnimeFragmentToSavedAnimeFragment(
+                    GetSavedAnimeUseCase.SavedCommands.FAVOURITES
+                )
+            )
+        }
+        binding.toWatchButton.setOnClickListener {
+            findNavController().navigate(
+                DiscoverAnimeFragmentDirections.actionDiscoverAnimeFragmentToSavedAnimeFragment(
+                    GetSavedAnimeUseCase.SavedCommands.TO_WATCH
+                )
+            )
+        }
+
     }
 
     override fun onDestroyView() {
